@@ -82,14 +82,14 @@
   padding: 10px;
   border-radius: 1em;
   height: 325px;
-  width: 230px;
+  width: 220px;
   margin: auto;
   background-color: #191b28;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 .display-box {
   font-family: "Orbitron", sans-serif;
-  background-color: #dcdbe1;
+  background-color: #2a2d2e;
   border: solid black 0.5px;
   color: black;
   border-radius: 5px;
@@ -98,7 +98,7 @@
 }
 .button {
   font-family: "Orbitron", sans-serif;
-  background-color: #64278f;
+  background-color: #646768;
   color: white;
   border: solid black 0.5px;
   width: 100%;
