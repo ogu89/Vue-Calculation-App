@@ -1,12 +1,45 @@
 <template>
-  <table class="calculator">
-    <tr>
-      <td colspan="3">
+  <div class="container">
+    <div class="calculator">
+      <input class="value calculator_display" type="text" name="text" readonly />
+      <input class="button top" type="button" value="AC" />
+      <input class="button top" type="button" value="⌫︁" />
+      <input class="button top" type="button" value="%" />
+      <input class="button right" type="button" value="÷" />
+      <input class="button numbers" type="button" value="7" />
+      <input class="button numbers" type="button" value="8" />
+      <input class="button numbers" type="button" value="9" />
+      <input class="button right" type="button" value="&times;" />
+      <input class="button numbers" type="button" value="4" />
+      <input class="button numbers" type="button" value="5" />
+      <input class="button numbers" type="button" value="6" />
+      <input class="button right" type="button" value="-" />
+      <input class="button numbers" type="button" value="1" />
+      <input class="button numbers" type="button" value="2" />
+      <input class="button numbers" type="button" value="3" />
+      <input class="button right" type="button" value="+" />
+      <input class="button zero numbers" type="button" value="0" />
+      <input class="button numbers" type="button" value="." />
+      <input class="button right" type="button" value="=" />
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  setup() {
+    
+  },
+
+}
+</script>
+
+  <!-- <td colspan="5">
         <input type="text" class="display-box" id="result" disabled />
       </td>
-    </tr>
+    
     <tr>
-      <!-- display() function display the value of clicked button -->
+      display() function display the value of clicked button
       <td>
         <input class="button" type="button" value="AC" />
       </td>
@@ -72,45 +105,85 @@
       <td>
         <input class="button" type="button" value="=" />
       </td>
-    </tr>
-  </table>
-</template>
+    </tr> -->
+
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Orbitron&display=swap");
+
+
+.v-text-field input {
+    font-size: 2.3;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  
+}
+
 .calculator {
-  padding: 10px;
-  border-radius: 1em;
-  height: 325px;
-  width: 220px;
-  margin: auto;
-  background-color: #191b28;
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  position: relative;
+  display: grid;
+
+  box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 0.5em;
+  overflow: hidden;
 }
-.display-box {
-  font-family: "Orbitron", sans-serif;
-  background-color: #2a2d2e;
-  border: solid black 0.5px;
-  color: black;
-  border-radius: 5px;
-  width: 100%;
-  height: 65%;
-}
-.button {
-  font-family: "Orbitron", sans-serif;
-  background-color: #646768;
-  color: white;
-  border: solid black 0.5px;
-  width: 100%;
-  border-radius: 5px;
-  height: 70%;
+.calculator .value {
+  grid-column: span 4;
+  height: 100px;
+  text-align: right;
+  border: none;
   outline: none;
+  padding: 10px;
+  font-size: 18px;
+  color: #fff;
 }
-.button:active {
-  background: #e5e5e5;
-  -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
-  -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
-  box-shadow: inset 0px 0px 5px #c1c1c1;
+
+.calculator__display {
+  background-color: var(--grey-900);
+  color: var(--grey-050);
+  width: 16.25rem;
+  padding: 0.75rem 1rem;
+  text-align: right;
+  font-size: calc(1rem * 1.2 * 1.2);
+}
+
+.calculator .button {
+  display: grid;
+  width: 60px;
+  height: 60px;
+  color: #fff;
+  place-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.calculator .button:active {
+  background: hsl(107, 11%, 84%);
+  color: #111;
+}
+
+.calculator .zero {
+  grid-column: span 2;
+  width: 120px;
+}
+
+.value{
+  background: #2a2d2f;
+}
+
+.right{
+  background: #ff9f0a;
+}
+
+.top{
+  background: #3e4143;
+}
+
+.numbers{
+  background: #5f6062;
 }
 </style>
 
