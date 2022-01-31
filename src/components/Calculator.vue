@@ -1,7 +1,10 @@
 <template>
   <div class="container">
     <div class="calculator">
-      <input class="value calculator_display" type="text" name="text" readonly />
+      <div class="value ">
+        {{ $store.state.input}}
+      </div>
+      <!-- <input class="value calculator_display" type="text" name="text" :value=$store.state.input  /> -->
       <input class="button top" type="button" value="AC" />
       <input class="button top" type="button" value="⌫︁" />
       <input class="button top" type="button" value="%" />
@@ -110,10 +113,10 @@ export default {
 
 <style scoped>
 
-
+/* 
 .v-text-field input {
     font-size: 2.3;
-}
+} */
 
 .container {
   display: flex;
@@ -131,25 +134,27 @@ export default {
   border-radius: 0.5em;
   overflow: hidden;
 }
+
 .calculator .value {
   grid-column: span 4;
-  height: 100px;
-  text-align: right;
+  height: 70px;
+  text-align: right ;
+  vertical-align: center;
   border: none;
   outline: none;
   padding: 10px;
-  font-size: 18px;
+  font-size: 20px;
   color: #fff;
 }
 
-.calculator__display {
+/* .calculator__display {
   background-color: var(--grey-900);
   color: var(--grey-050);
   width: 16.25rem;
   padding: 0.75rem 1rem;
   text-align: right;
   font-size: calc(1rem * 1.2 * 1.2);
-}
+} */
 
 .calculator .button {
   display: grid;
