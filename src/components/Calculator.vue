@@ -2,38 +2,74 @@
   <div class="container">
     <div class="calculator">
       <div class="value ">
-        {{ $store.state.input}}
+        {{ this.$store.state.input}}
       </div>
       <!-- <input class="value calculator_display" type="text" name="text" :value=$store.state.input  /> -->
-      <input class="button top" type="button" value="AC" />
-      <input class="button top" type="button" value="⌫︁" />
-      <input class="button top" type="button" value="%" />
-      <input class="button right" type="button" value="÷" />
-      <input class="button numbers" type="button" value="7" />
-      <input class="button numbers" type="button" value="8" />
-      <input class="button numbers" type="button" value="9" />
-      <input class="button right" type="button" value="&times;" />
-      <input class="button numbers" type="button" value="4" />
-      <input class="button numbers" type="button" value="5" />
-      <input class="button numbers" type="button" value="6" />
-      <input class="button right" type="button" value="-" />
-      <input class="button numbers" type="button" value="1" />
-      <input class="button numbers" type="button" value="2" />
-      <input class="button numbers" type="button" value="3" />
-      <input class="button right" type="button" value="+" />
-      <input class="button zero numbers" type="button" value="0" />
-      <input class="button numbers" type="button" value="." />
-      <input class="button right" type="button" value="=" />
+      <input class="button top" type="button" value="AC"  @click="clearButton()"  />
+      <input class="button top" type="button" value="⌫︁" @click="eraseToLeft()"  />
+      <input class="button top" type="button" value="%" @click="inputOperator('%')"  />
+      <input class="button right" type="button" value="÷" @click="inputOperator('÷')"  />
+      <input class="button numbers" type="button" value="7" @click="inputOperand('7')"  />
+      <input class="button numbers" type="button" value="8" @click="inputOperand('8')"  />
+      <input class="button numbers" type="button" value="9" @click="inputOperand('9')"   />
+      <input class="button right" type="button" value="&times;" @click="inputOperator('&times;')" />
+      <input class="button numbers" type="button" value="4" @click="inputOperand('4')" />
+      <input class="button numbers" type="button" value="5" @click="inputOperand('5')" />
+      <input class="button numbers" type="button" value="6" @click="inputOperand('6')" />
+      <input class="button right" type="button" value="-" @click="inputOperator('-')" />
+      <input class="button numbers" type="button" value="1" @click="inputOperand('1')" />
+      <input class="button numbers" type="button" value="2" @click="inputOperand('2')" />
+      <input class="button numbers" type="button" value="3" @click="inputOperand('3')" />
+      <input class="button right" type="button" value="+" @click="inputOperator('+')" />
+      <input class="button zero numbers" type="button" value="0" @click="inputOperand('0')" />
+      <input class="button numbers" type="button" value="." @click="inputDecimal()" />
+      <input class="button right" type="button" value="=" @click="calculation()" />
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
   setup() {
-    
-  },
 
+
+    const inputOperand = (operand) =>{
+      this.$store.commit('inputOperand', operand)
+    };
+
+    const inputOperator = (operator) =>{
+        console.log(operator);
+    };
+
+    const inputDecimal = () =>{
+
+    };
+
+    const clearButton = () =>{
+
+    };
+
+    const eraseToLeft = () =>{
+
+    };
+
+    const calculation = () =>{
+
+    };
+
+
+
+    return {
+      inputOperand,
+      inputOperator,
+      inputDecimal,
+      clearButton,
+      eraseToLeft,
+      calculation
+    }
+
+  },
 }
 </script>
 
@@ -123,7 +159,6 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  
 }
 
 .calculator {

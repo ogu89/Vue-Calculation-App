@@ -5,6 +5,9 @@ export default createStore({
     input: 'dfdfsdfsdfsdffd'
   },
   mutations: {
+    inputOperand(state, operand){
+      state.input += operand
+    }
   },
   actions: {
   },
