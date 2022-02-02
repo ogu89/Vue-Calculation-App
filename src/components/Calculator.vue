@@ -1,76 +1,215 @@
 <template>
   <div class="container">
     <div class="calculator">
-      <div class="value ">
-        {{ this.$store.state.input}}
+      <div class="value">
+        <p>{{ input }}</p>
+        
       </div>
       <!-- <input class="value calculator_display" type="text" name="text" :value=$store.state.input  /> -->
-      <input class="button top" type="button" value="AC"  @click="clearButton()"  />
-      <input class="button top" type="button" value="⌫︁" @click="eraseToLeft()"  />
-      <input class="button top" type="button" value="%" @click="inputOperator('%')"  />
-      <input class="button right" type="button" value="÷" @click="inputOperator('÷')"  />
-      <input class="button numbers" type="button" value="7" @click="inputOperand('7')"  />
-      <input class="button numbers" type="button" value="8" @click="inputOperand('8')"  />
-      <input class="button numbers" type="button" value="9" @click="inputOperand('9')"   />
-      <input class="button right" type="button" value="&times;" @click="inputOperator('&times;')" />
-      <input class="button numbers" type="button" value="4" @click="inputOperand('4')" />
-      <input class="button numbers" type="button" value="5" @click="inputOperand('5')" />
-      <input class="button numbers" type="button" value="6" @click="inputOperand('6')" />
-      <input class="button right" type="button" value="-" @click="inputOperator('-')" />
-      <input class="button numbers" type="button" value="1" @click="inputOperand('1')" />
-      <input class="button numbers" type="button" value="2" @click="inputOperand('2')" />
-      <input class="button numbers" type="button" value="3" @click="inputOperand('3')" />
-      <input class="button right" type="button" value="+" @click="inputOperator('+')" />
-      <input class="button zero numbers" type="button" value="0" @click="inputOperand('0')" />
-      <input class="button numbers" type="button" value="." @click="inputDecimal()" />
-      <input class="button right" type="button" value="=" @click="calculation()" />
+      <input
+        class="button top"
+        type="button"
+        value="AC"
+        v-if="input == ''"
+        @click="clearButton()"
+      />
+      <input
+        class="button top"
+        type="button"
+        value="C"
+        v-else
+        @click="clearButton()"
+      />
+      <input
+        class="button top"
+        type="button"
+        value="⌫︁"
+        @click="eraseToLeft()"
+      />
+      <input
+        class="button top"
+        type="button"
+        value="%"
+        @click="inputOperator('%')"
+      />
+      <input
+        class="button right"
+        type="button"
+        value="÷"
+        @click="inputOperator('÷')"
+      />
+      <input
+        class="button numbers"
+        type="button"
+        value="7"
+        @click="inputOperand('7')"
+      />
+      <input
+        class="button numbers"
+        type="button"
+        value="8"
+        @click="inputOperand('8')"
+      />
+      <input
+        class="button numbers"
+        type="button"
+        value="9"
+        @click="inputOperand('9')"
+      />
+      <input
+        class="button right"
+        type="button"
+        value="&times;"
+        @click="inputOperator('&times;')"
+      />
+      <input
+        class="button numbers"
+        type="button"
+        value="4"
+        @click="inputOperand('4')"
+      />
+      <input
+        class="button numbers"
+        type="button"
+        value="5"
+        @click="inputOperand('5')"
+      />
+      <input
+        class="button numbers"
+        type="button"
+        value="6"
+        @click="inputOperand('6')"
+      />
+      <input
+        class="button right"
+        type="button"
+        value="-"
+        @click="inputOperator('-')"
+      />
+      <input
+        class="button numbers"
+        type="button"
+        value="1"
+        @click="inputOperand('1')"
+      />
+      <input
+        class="button numbers"
+        type="button"
+        value="2"
+        @click="inputOperand('2')"
+      />
+      <input
+        class="button numbers"
+        type="button"
+        value="3"
+        @click="inputOperand('3')"
+      />
+      <input
+        class="button right"
+        type="button"
+        value="+"
+        @click="inputOperator('+')"
+      />
+      <input
+        class="button zero numbers"
+        type="button"
+        value="0"
+        @click="inputOperand('0')"
+      />
+      <input
+        class="button numbers"
+        type="button"
+        value="."
+        @click="inputDecimal()"
+      />
+      <input
+        class="button right"
+        type="button"
+        value="="
+        @click="calculation()"
+      />
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
-  setup() {
-
-
-    const inputOperand = (operand) =>{
-      this.$store.commit('inputOperand', operand)
-    };
-
-    const inputOperator = (operator) =>{
-        console.log(operator);
-    };
-
-    const inputDecimal = () =>{
-
-    };
-
-    const clearButton = () =>{
-
-    };
-
-    const eraseToLeft = () =>{
-
-    };
-
-    const calculation = () =>{
-
-    };
-
-
-
-    return {
-      inputOperand,
-      inputOperator,
-      inputDecimal,
-      clearButton,
-      eraseToLeft,
-      calculation
-    }
-
+  data() {
+    return { input: '',};
   },
-}
+  methods: {
+    inputOperand(operand) {
+      this.input += operand;
+    },
+
+    inputOperator(operator) {
+      //this.input += operator;
+      const operands = ["+", "-", "×", "÷", "%"];
+
+      if (!operands.includes(this.input[this.input.length - 1])) {
+        this.input += operator;
+      } else {
+        this.input = this.input.substring(0, this.input.length - 1) + operator;
+      }
+    },
+
+    inputDecimal() {
+      this.input += ".";
+    },
+
+    clearButton() {
+      this.input = "";
+    },
+
+    eraseToLeft() {
+      this.input = this.input.substring(0, this.input.length - 1);
+    },
+
+    calculation() {
+
+    }
+  },
+};
+// setup() {
+//   // const store = useStore(); // same as this.$store
+
+//   const input = ref('dfsdfsdf');
+
+//   const inputOperand = (operand) =>{
+//     this.input += operand;
+//   };
+
+//   const inputOperator = (operator) =>{
+//     this.input += operator;
+//   };
+
+//   const inputDecimal = () =>{
+//     this.input += '.';
+//   };
+
+//   const clearButton = () =>{
+//     this.input = '';
+//   };
+
+//   const eraseToLeft = () =>{
+
+//   };
+
+//   const calculation = () =>{
+
+//   };
+
+//   return {
+//     input,
+//     inputOperand,
+//     inputOperator,
+//     inputDecimal,
+//     clearButton,
+//     eraseToLeft,
+//     calculation
+//   }
+
+// },
 </script>
 
   <!-- <td colspan="5">
@@ -148,7 +287,6 @@ export default {
 
 
 <style scoped>
-
 /* 
 .v-text-field input {
     font-size: 2.3;
@@ -173,7 +311,7 @@ export default {
 .calculator .value {
   grid-column: span 4;
   height: 70px;
-  text-align: right ;
+  text-align: right;
   vertical-align: center;
   border: none;
   outline: none;
@@ -210,19 +348,19 @@ export default {
   width: 120px;
 }
 
-.value{
+.value {
   background: #2a2d2f;
 }
 
-.right{
+.right {
   background: #ff9f0a;
 }
 
-.top{
+.top {
   background: #3e4143;
 }
 
-.numbers{
+.numbers {
   background: #5f6062;
 }
 </style>

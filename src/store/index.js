@@ -2,12 +2,12 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    input: 'dfdfsdfsdfsdffd'
+    // input: "lkjdflskdjf"
   },
   mutations: {
-    inputOperand(state, operand){
-      state.input += operand
-    }
+    // inputOperand(state, operand){
+    //   state.input += operand
+    // }
   },
   actions: {
   },
