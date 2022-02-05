@@ -3,7 +3,6 @@
     <div class="calculator">
       <div class="value">
         <p>{{ input }}</p>
-        
       </div>
       <!-- <input class="value calculator_display" type="text" name="text" :value=$store.state.input  /> -->
       <input
@@ -135,7 +134,7 @@
 <script>
 export default {
   data() {
-    return { input: '',};
+    return { input: "" };
   },
   methods: {
     inputOperand(operand) {
@@ -166,8 +165,78 @@ export default {
     },
 
     calculation() {
+      let expression = this.input;
+      let nums = [];
+      let ops = [];
+      const operands = ["+", "-", "×", "÷", "%"];
 
-    }
+      for (let i = 0; i < expression.length; i++) {
+        // if (isNaN(expression[i])
+        if ( operands.includes(expression[i])) {
+          //console.log(expression[i]);
+          let currOP = expression[i];
+          while (
+            ops.length > 0 &&
+            this.getPriority(currOP) <= this.getPriority(ops[ops.length - 1])
+          ) {
+            this.process(nums, ops[ops.length - 1]);
+            ops.pop();
+          }
+          ops.push(currOP);
+        } else {
+          let number = "";
+          while (i < expression.length && ! operands.includes(expression[i]) ) {
+            number += expression[i];
+            i++;
+          }
+          i--;
+          console.log(number);
+          nums.push(number);
+        }
+      }
+
+      while (ops.length > 0) {
+        this.process(nums, ops[ops.length - 1]);
+        ops.pop();
+      }
+      nums[0] = Math.floor(nums[0] * 100000)/100000
+      //console.log(nums[0]);
+      this.input = nums[0];
+    },
+
+    process(stack, op) {
+      const right = parseFloat(stack.pop());
+      const left = parseFloat(stack.pop());
+      //console.log(right);
+      //console.log(left);
+
+      let value = 0;
+
+      switch (op) {
+        case "+":
+          value = left + right;
+          break;
+        case "-":
+          value = left - right;
+          break;
+        case "×":
+          value = left * right;
+          break;
+        case "%":
+          value = left % right;
+          break;
+        case "/":
+          value = Math.floor(left / right);
+          break;
+      }
+      // 計算した結果は、次の演算子での計算のため再度スタックに入れます。
+      stack.push(value);
+    },
+
+    getPriority(op) {
+      if (op == "+" || op == "-") return 1;
+      else if (op == "×" || op == "/") return 2;
+    },
   },
 };
 // setup() {
@@ -316,7 +385,8 @@ export default {
   border: none;
   outline: none;
   padding: 10px;
-  font-size: 20px;
+  font-size-adjust: 0.58;
+  /* font-size: 20px; */
   color: #fff;
 }
 
