@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div class="calculator">
-      <div class="value">
-        <p>{{ input }}</p>
+      <div class="value" >
+        <p ref="expression" :style="{ fontSize: inputFontSize + 'px' }">{{ input }}</p>
       </div>
       <!-- <input class="value calculator_display" type="text" name="text" :value=$store.state.input  /> -->
       <input
@@ -134,11 +134,18 @@
 <script>
 export default {
   data() {
-    return { input: "" };
+    return {
+      input: "",
+      width: 280,
+      inputFontSize: 24,
+      initialInputFontSize: 24,
+    };
   },
   methods: {
     inputOperand(operand) {
       this.input += operand;
+
+      this.adjustInputFontSize();
     },
 
     inputOperator(operator) {
@@ -150,6 +157,8 @@ export default {
       } else {
         this.input = this.input.substring(0, this.input.length - 1) + operator;
       }
+
+      this.adjustInputFontSize();
     },
 
     inputDecimal() {
@@ -172,7 +181,7 @@ export default {
 
       for (let i = 0; i < expression.length; i++) {
         // if (isNaN(expression[i])
-        if ( operands.includes(expression[i])) {
+        if (operands.includes(expression[i])) {
           //console.log(expression[i]);
           let currOP = expression[i];
           while (
@@ -185,7 +194,7 @@ export default {
           ops.push(currOP);
         } else {
           let number = "";
-          while (i < expression.length && ! operands.includes(expression[i]) ) {
+          while (i < expression.length && !operands.includes(expression[i])) {
             number += expression[i];
             i++;
           }
@@ -199,7 +208,7 @@ export default {
         this.process(nums, ops[ops.length - 1]);
         ops.pop();
       }
-      nums[0] = Math.floor(nums[0] * 100000)/100000
+      nums[0] = Math.floor(nums[0] * 100000) / 100000;
       //console.log(nums[0]);
       this.input = nums[0];
     },
@@ -236,6 +245,22 @@ export default {
     getPriority(op) {
       if (op == "+" || op == "-") return 1;
       else if (op == "×" || op == "/") return 2;
+    },
+
+    // if (this.isDisplaySizeFull() && this.displayStyle.inputFontSize > 5) this.displayStyle.inputFontSize--;
+    // else if (this.displayStyle.inputFontSize < this.displayStyle.initialInputFontSize) this.displayStyle.inputFontSize++;
+    adjustInputFontSize() {
+      if (this.isDisplaySizeFull() && this.inputFontSize > 5)
+        this.inputFontSize--;
+      else if (this.inputFontSize < this.initialInputFontSize)
+        this.inputFontSize++;
+    },
+
+    isDisplaySizeFull() {
+      const targetWidth = this.$refs.expression.offsetWidth;
+      console.log(targetWidth);
+      const displayWidth = this.width - 60;
+      return targetWidth > displayWidth;
     },
   },
 };
@@ -375,20 +400,25 @@ export default {
   box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.3);
   border-radius: 0.5em;
   overflow: hidden;
+  width: 232px;
+  height: 320px;
 }
 
 .calculator .value {
   grid-column: span 4;
-  height: 70px;
+  height: 60px;
   text-align: right;
   vertical-align: center;
   border: none;
   outline: none;
   padding: 10px;
-  font-size-adjust: 0.58;
   /* font-size: 20px; */
   color: #fff;
 }
+
+/* .value p {
+  font-size-adjust: revert;
+} */
 
 /* .calculator__display {
   background-color: var(--grey-900);
@@ -402,7 +432,7 @@ export default {
 .calculator .button {
   display: grid;
   width: 60px;
-  height: 60px;
+  height: 48px;
   color: #fff;
   place-items: center;
   border: 1px solid rgba(0, 0, 0, 0.1);
